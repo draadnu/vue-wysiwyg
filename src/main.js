@@ -3,9 +3,7 @@ import App from './App.vue';
 
 import wysiwyg from "./editor";
 Vue.use(wysiwyg, {
-  hideModules: {
-    bold: false
-  }
+    forcePlainTextOnPaste: true
 });
 
 new Vue({

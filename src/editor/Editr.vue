@@ -196,6 +196,11 @@ export default {
              // get a plain representation of the clipboard
             var text = e.clipboardData.getData("text/plain");
 
+            if(/\n/gi.test(text)) {
+                // contains tab or new line
+                text = text.replace(/\n/gi, '<br />');
+            }
+
             // insert that plain text text manually
             document.execCommand("insertHTML", false, text);
         },
