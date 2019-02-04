@@ -42,6 +42,8 @@ import removeFormat from "./modules/removeFormat.js";
 
 import separator from "./modules/separator.js";
 
+import striptags from 'striptags';
+
 const modules = [
     bold, italic, underline, separator,
     alignLeft, alignCenter, alignRight, separator,
@@ -194,15 +196,32 @@ export default {
             e.preventDefault();
 
              // get a plain representation of the clipboard
-            var text = e.clipboardData.getData("text/plain");
+            var sel = e.clipboardData.getData("text/html");
 
-            if(/\n/gi.test(text)) {
-                // contains tab or new line
-                text = text.replace(/\n/gi, '<br />');
+            sel = sel.replace(/\<th\>/ig, '<td>');
+            sel = sel.replace(/\<\/th\>/ig, '</td>');
+            sel = sel.replace(/\<\h([0-9])\>/ig, '<br /><h$1>');
+
+            sel = striptags(sel, ['br', 'ol', 'ul', 'li', 'table', 'tr', 'th', 'td', 'p', 'span']);
+            sel = striptags(sel, ['br', 'ol', 'ul', 'li', 'table', 'tr', 'th', 'td'], '<br />');
+
+            while (sel.indexOf('<br /><br /><br />') !== -1) {
+                sel.replace('<br /><br /><br />', '<br /><br />');
+            }
+            while (sel.indexOf('<br><br><br>') !== -1) {
+                sel.replace('<br><br><br>', '<br><br>');
+            }
+
+            while (sel.indexOf('<br>') == 0) {
+                sel = sel.substr(4);
+            }
+
+            while (sel.indexOf('<br />') == 0) {
+                sel = sel.substr(6);
             }
 
             // insert that plain text text manually
-            document.execCommand("insertHTML", false, text);
+            document.execCommand("insertHTML", false, sel);
         },
 
         syncHTML () {
@@ -225,6 +244,8 @@ export default {
         }
         
         this.$refs.content.style.maxHeight = this.mergedOptions.maxHeight;
+
+        window.striptags = striptags;
     },
 
     beforeDestroy () {
