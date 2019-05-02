@@ -1,15 +1,15 @@
 <template>
     <form @submit.prevent="insertLink">
-        <label>
-            URL
-            <input ref="url" type="text" style="width: 40%" v-model="url">
-        </label>
-        <label>
-            Link Title
-            <input type="text" style="width: 40%" v-model="title">
-        </label>
+        <div style="position: relative; float: left; width: 40%;" @click="clickUrl">
+            <label for="url">URL</label>
+            <input ref="url" id="url" type="text" style="width: 70%" v-model="url" autocomplete="false">
+        </div>
+        <div style="position: relative; float: left; width: 40%;" @click="clickText">
+            <label for="text">Link Title</label>
+            <input ref="text" type="text" id="text" style="width: 70%" v-model="title" autocomplete="false">
+        </div>
 
-        <button type="submit">Insert</button>
+        <button type="submit" style="float: left; width: 20%;position: relative; top: 2px;">Insert</button>
     </form>
 
 </template>
@@ -37,6 +37,18 @@ export default {
             this.$parent.closeDashboard();
             this.url = "";
             this.title = "";
+        },
+
+        clickUrl() {
+            this.$nextTick(() => {
+                this.$refs.url.focus();
+            });
+        },
+
+        clickText() {
+            this.$nextTick(() => {
+                this.$refs.text.focus();
+            });
         }
     },
 
