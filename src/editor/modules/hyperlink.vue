@@ -55,6 +55,8 @@ export default {
     created () {
         bus.on(this.uid + "_show_dashboard_link", () => {
             this.$nextTick(() => {
+                let sel = bus.utils.getHTMLOfSelection();
+                this.title = sel;
                 this.$refs.url.focus();
             });
         });
