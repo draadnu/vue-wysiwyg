@@ -198,6 +198,10 @@ export default {
              // get a plain representation of the clipboard
             var sel = e.clipboardData.getData("text/html");
 
+            if (sel == "") {
+                sel = e.clipboardData.getData('text');
+            }
+
             sel = sel.replace(/\<th\>/ig, '<td>');
             sel = sel.replace(/\<\/th\>/ig, '</td>');
             sel = sel.replace(/\<\h([0-9])\>/ig, '<br /><h$1>');
