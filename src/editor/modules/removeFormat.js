@@ -11,7 +11,7 @@ module.exports = {
 		sel = striptags(sel, ['br', 'ol', 'ul', 'li', 'table', 'tr', 'th', 'td', 'p', 'span']);
 		sel = striptags(sel, ['br', 'ol', 'ul', 'li', 'table', 'tr', 'th', 'td'], '<br />');
 		
-		while (sel.indexOf('<br /><br /><br />') !== -1) {
+		/*while (sel.indexOf('<br /><br /><br />') !== -1) {
 			sel.replace('<br /><br /><br />', '<br /><br />');
 		}
 		while (sel.indexOf('<br><br><br>') !== -1) {
@@ -25,7 +25,7 @@ module.exports = {
 		while (sel.indexOf('<br />') == 0) {
 			sel = sel.substr(6);
 		}
-		
+		*/
         // wrap selection in custom html tags
         return [
             ["insertHTML", `${sel}`, true],
