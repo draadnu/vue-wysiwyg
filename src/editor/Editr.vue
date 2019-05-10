@@ -202,12 +202,13 @@ export default {
                 sel = e.clipboardData.getData('text');
             }
 
-            /*sel = sel.replace(/\<th\>/ig, '<td>');
+            sel = sel.replace(/\<th\>/ig, '<td>');
             sel = sel.replace(/\<\/th\>/ig, '</td>');
             sel = sel.replace(/\<\h([0-9])\>/ig, '<br /><h$1>');
+		    sel = sel.replace(/MsoNormal/ig, '');
 
             sel = striptags(sel, ['br', 'ol', 'ul', 'li', 'table', 'tr', 'th', 'td', 'p', 'span']);
-            sel = striptags(sel, ['br', 'ol', 'ul', 'li', 'table', 'tr', 'th', 'td'], '<br />');*/
+            sel = striptags(sel, ['br', 'ol', 'ul', 'li', 'table', 'tr', 'th', 'td'], '<br />');
 
             /*while (sel.indexOf('<br /><br /><br />') !== -1) {
                 sel.replace('<br /><br /><br />', '<br /><br />');
