@@ -209,7 +209,7 @@ export default {
             sel = striptags(sel, ['br', 'ol', 'ul', 'li', 'table', 'tr', 'th', 'td', 'p', 'span']);
             sel = striptags(sel, ['br', 'ol', 'ul', 'li', 'table', 'tr', 'th', 'td'], '<br />');
 
-            while (sel.indexOf('<br /><br /><br />') !== -1) {
+            /*while (sel.indexOf('<br /><br /><br />') !== -1) {
                 sel.replace('<br /><br /><br />', '<br /><br />');
             }
             while (sel.indexOf('<br><br><br>') !== -1) {
@@ -222,7 +222,7 @@ export default {
 
             while (sel.indexOf('<br />') == 0) {
                 sel = sel.substr(6);
-            }
+            }*/
 
             // insert that plain text text manually
             document.execCommand("insertHTML", false, sel);
