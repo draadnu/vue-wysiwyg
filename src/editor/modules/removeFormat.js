@@ -3,30 +3,29 @@ module.exports = {
 	customAction (utils) {
         let sel = utils.getHTMLOfSelection();
         
-         // get a plain representation of the clipboard
+        // get a plain representation of the clipboard
 		sel = sel.replace(/\<th\>/ig, '<td>');
 		sel = sel.replace(/\<\/th\>/ig, '</td>');
 		sel = sel.replace(/\<\h([0-9])\>/ig, '<br /><h$1>');
 		sel = sel.replace(/MsoNormal/ig, '');
-
-		sel = striptags(sel, ['br', 'ol', 'ul', 'li', 'table', 'tr', 'th', 'td', 'p', 'span']);
-		sel = striptags(sel, ['br', 'ol', 'ul', 'li', 'table', 'tr', 'th', 'td'], '<br />');
 		
-		/*while (sel.indexOf('<br /><br /><br />') !== -1) {
-			sel.replace('<br /><br /><br />', '<br /><br />');
+		sel = striptags(sel, ['br', 'ol', 'ul', 'li', 'table', 'tr', 'th', 'td', 'p', 'span']);
+		sel = striptags(sel, ['br', 'ol', 'ul', 'li', 'table', 'tr', 'th', 'td'], '<br>');
+		
+		sel = sel.replace('<br />', '<br>');
+		sel = sel.replace(/(\r\n|\n|\r)/gm, '<br>');
+		
+		// Replace 3 or more breaks by 2 breaks
+		var regex = /((?:<br>(?:\s)*){3,})/gim;
+		
+		if (regex.test(sel)) {
+			sel = sel.replace(regex, '<br>');
 		}
-		while (sel.indexOf('<br><br><br>') !== -1) {
-			sel.replace('<br><br><br>', '<br><br>');
-		}
-
-		while (sel.indexOf('<br>') == 0) {
-			sel = sel.substr(4);
-		}
-
-		while (sel.indexOf('<br />') == 0) {
-			sel = sel.substr(6);
-		}
-		*/
+		
+		// Replace br at beginning
+		sel = sel.replace(/^\s+/gi, '');
+		sel = sel.replace(/^(<br>)+/gi, '');
+		
         // wrap selection in custom html tags
         return [
             ["insertHTML", `${sel}`, true],
