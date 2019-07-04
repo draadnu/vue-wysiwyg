@@ -6,7 +6,7 @@
         <button type="button" @click="insertHeading">H4</button>
         <button type="button" @click="insertHeading">H5</button>
         <button type="button" @click="insertHeading">H6</button>
-        <button type="button" @click="insertHeading">P</button>
+        <button type="button" @click="insertHeading">Normale tekst</button>
     </div>
 </template>
 
@@ -19,7 +19,12 @@ export default {
     methods: {
         insertHeading(e){
             this.$parent.closeDashboard();
-            this.$emit("exec", "formatBlock", e.target.textContent);
+            var content = e.target.textContent;
+
+            if (content == 'Normale tekst') {
+                content = 'p';
+            }
+            this.$emit("exec", "formatBlock", content);
         }
     }
 };
